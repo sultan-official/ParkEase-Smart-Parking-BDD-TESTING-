@@ -1,0 +1,207 @@
+Feature: Parking fee at the boundaries # features/exit_fee_boundaries.feature:1
+  As a registered ParkEase driver
+  I want my parking fee to be charged automatically from my wallet when I exit
+  So that I can leave the plaza without queuing at a payment booth
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @1.1 Free and rounding  # features/exit_fee_boundaries.feature:21
+    Given the driver "Ali" is logged in                                                                  # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                         # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                                  # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 15 minutes and 0 seconds ago                                       # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                                      # features/steps/parkease_steps.py:74
+    Then the screen shows "Free exit – gate opening"                                                     # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 0                                                                         # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 0                                                                      # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 0                                                                          # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 1,000                                                              # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @1.2 Free and rounding  # features/exit_fee_boundaries.feature:22
+    Given the driver "Ali" is logged in                                                                  # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                         # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                                  # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 15 minutes and 1 seconds ago                                       # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                                      # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                            # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 100                                                                       # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                                     # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 120                                                                        # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 880                                                                # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @1.3 Free and rounding  # features/exit_fee_boundaries.feature:23
+    Given the driver "Ali" is logged in                                                                  # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                         # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                                  # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 60 minutes and 0 seconds ago                                       # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                                      # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                            # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 100                                                                       # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                                     # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 120                                                                        # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 880                                                                # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @1.4 Free and rounding  # features/exit_fee_boundaries.feature:24
+    Given the driver "Ali" is logged in                                                                  # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                         # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                                  # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 61 minutes and 0 seconds ago                                       # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                                      # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                            # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 160                                                                       # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                                     # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 180                                                                        # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 820                                                                # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @1.5 Free and rounding  # features/exit_fee_boundaries.feature:25
+    Given the driver "Ali" is logged in                                                                  # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                         # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                                  # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 121 minutes and 0 seconds ago                                      # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                                      # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                            # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 220                                                                       # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                                     # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 240                                                                        # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 760                                                                # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @2.1 Daily cap  # features/exit_fee_boundaries.feature:29
+    Given the driver "Ali" is logged in                                                          # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                 # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                          # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 720 minutes and 0 seconds ago                              # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                              # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                    # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 760                                                               # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                             # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 780                                                                # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 220                                                        # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @2.2 Daily cap  # features/exit_fee_boundaries.feature:30
+    Given the driver "Ali" is logged in                                                          # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                 # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                          # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 721 minutes and 0 seconds ago                              # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                              # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                    # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 800                                                               # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                             # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 820                                                                # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 180                                                        # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario Outline: Petrol car fee for the grace, rounding and cap boundaries -- @2.3 Daily cap  # features/exit_fee_boundaries.feature:31
+    Given the driver "Ali" is logged in                                                          # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234"                                 # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                                                          # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 1440 minutes and 0 seconds ago                             # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                                              # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"                                    # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 800                                                               # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                                                             # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 820                                                                # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 180                                                        # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario: EV discount is calculated after the cap                # features/exit_fee_boundaries.feature:34
+    Given the driver "Sara" is logged in                           # features/steps/parkease_steps.py:37
+    And the driver has a linked electric car with plate "LEB-2024" # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                            # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 13 hours and 0 minutes ago   # features/steps/parkease_steps.py:59
+    When the driver exits the plaza                                # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"      # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 800                                 # features/steps/parkease_steps.py:88
+    And the EV discount is Rs. 200                                 # features/steps/parkease_steps.py:93
+    And the service charge is Rs. 20                               # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 620                                  # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 380                          # features/steps/parkease_steps.py:108
+
+  @boundary
+  Scenario: EV leaving inside the grace period pays nothing        # features/exit_fee_boundaries.feature:48
+    Given the driver "Sara" is logged in                           # features/steps/parkease_steps.py:37
+    And the driver has a linked electric car with plate "LEB-2024" # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                            # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 15 minutes and 0 seconds ago # features/steps/parkease_steps.py:65
+    When the driver exits the plaza                                # features/steps/parkease_steps.py:74
+    Then the screen shows "Free exit – gate opening"               # features/steps/parkease_steps.py:82
+    And the service charge is Rs. 0                                # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 0                                    # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 1,000                        # features/steps/parkease_steps.py:108
+    And the gate is open                                           # features/steps/parkease_steps.py:113
+
+Feature: Exit payment is refused when it cannot be completed # features/exit_payment_negative.feature:1
+  As a registered ParkEase driver
+  I want my parking fee to be charged automatically from my wallet when I exit
+  So that I can leave the plaza without queuing at a payment booth
+  @negative
+  Scenario: Wallet is Rs. 1 short of the total payable           # features/exit_payment_negative.feature:7
+    Given the driver "Ali" is logged in                          # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234" # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 239                            # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 2 hours and 10 minutes ago # features/steps/parkease_steps.py:59
+    When the driver exits the plaza                              # features/steps/parkease_steps.py:74
+    Then the screen shows "Insufficient wallet balance"          # features/steps/parkease_steps.py:82
+    And the total paid is Rs. 0                                  # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 239                        # features/steps/parkease_steps.py:108
+    And the gate stays closed                                    # features/steps/parkease_steps.py:118
+
+  @negative
+  Scenario: Driver who is not logged in cannot pay by wallet     # features/exit_payment_negative.feature:19
+    Given the driver "Ali" is not logged in                      # features/steps/parkease_steps.py:42
+    And the driver has a linked petrol car with plate "LEA-1234" # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                          # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 2 hours and 10 minutes ago # features/steps/parkease_steps.py:59
+    When the driver exits the plaza                              # features/steps/parkease_steps.py:74
+    Then the screen shows "Please log in to pay by wallet"       # features/steps/parkease_steps.py:82
+    And the wallet balance is now Rs. 1,000                      # features/steps/parkease_steps.py:108
+    And the gate stays closed                                    # features/steps/parkease_steps.py:118
+
+Feature: Rewritten scenarios from the critique (Part C4) # features/exit_payment_rewrite.feature:1
+  As a registered ParkEase driver
+  I want my parking fee to be charged automatically from my wallet when I exit
+  So that I can leave the plaza without queuing at a payment booth
+  @rewrite
+  Scenario: Registered driver pays the exit fee from the wallet  # features/exit_payment_rewrite.feature:7
+    Given the driver "Ali" is logged in                          # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234" # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 500                            # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 2 hours and 10 minutes ago # features/steps/parkease_steps.py:59
+    When the driver exits the plaza                              # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"    # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 220                               # features/steps/parkease_steps.py:88
+    And the service charge is Rs. 20                             # features/steps/parkease_steps.py:98
+    And the wallet balance is now Rs. 260                        # features/steps/parkease_steps.py:108
+
+  @rewrite
+  Scenario: Gate opens after a successful payment                # features/exit_payment_rewrite.feature:19
+    Given the driver "Ali" is logged in                          # features/steps/parkease_steps.py:37
+    And the driver has a linked petrol car with plate "LEA-1234" # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 500                            # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 2 hours and 10 minutes ago # features/steps/parkease_steps.py:59
+    When the driver exits the plaza                              # features/steps/parkease_steps.py:74
+    Then the total paid is Rs. 240                               # features/steps/parkease_steps.py:103
+    And the gate is open                                         # features/steps/parkease_steps.py:113
+
+Feature: Automatic exit payment from the wallet # features/exit_payment_smoke.feature:1
+  As a registered ParkEase driver
+  I want my parking fee to be charged automatically from my wallet when I exit
+  So that I can leave the plaza without queuing at a payment booth
+  @smoke
+  Scenario: Registered EV pays for a stay of 3 hours and 40 minutes  # features/exit_payment_smoke.feature:7
+    Given the driver "Ali" is logged in                              # features/steps/parkease_steps.py:37
+    And the driver has a linked electric car with plate "LEB-2024"   # features/steps/parkease_steps.py:47
+    And the wallet balance is Rs. 1,000                              # features/steps/parkease_steps.py:54
+    And the vehicle entered the plaza 3 hours and 40 minutes ago     # features/steps/parkease_steps.py:59
+    When the driver exits the plaza                                  # features/steps/parkease_steps.py:74
+    Then the screen shows "Payment successful – gate opening"        # features/steps/parkease_steps.py:82
+    And the parking fee is Rs. 280                                   # features/steps/parkease_steps.py:88
+    And the EV discount is Rs. 70                                    # features/steps/parkease_steps.py:93
+    And the service charge is Rs. 20                                 # features/steps/parkease_steps.py:98
+    And the total paid is Rs. 230                                    # features/steps/parkease_steps.py:103
+    And the wallet balance is now Rs. 770                            # features/steps/parkease_steps.py:108
+    And the gate is open                                             # features/steps/parkease_steps.py:113
+
